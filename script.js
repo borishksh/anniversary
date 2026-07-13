@@ -10,6 +10,8 @@
   const CONFIG = {
     // Together-for counter start: July 20, 2025 at midnight
     anniversaryDate: new Date("2025-07-20T00:00:00"),
+    // Site unlock time (local). Change this date/time anytime.
+    unlockAt: new Date("2026-07-13T18:30:00"),
     loaderMs: 2000,
     floatingMessages: [
       "I love you",
@@ -82,13 +84,104 @@
   }
 
   /* ---------- Loader ---------- */
+  let loaderDone = false;
+  let openingStarted = false;
+
+  const startOpeningIfReady = () => {
+    if (openingStarted || !loaderDone) return;
+    if (document.body.classList.contains("is-locked")) return;
+    openingStarted = true;
+    document.body.style.overflow = "";
+    initOpeningSequence();
+  };
+
+  /* ---------- Countdown site lock ---------- */
+  function initSiteLock() {
+    const lock = $("#siteLock");
+    if (!lock) {
+      document.body.classList.remove("is-locked");
+      return;
+    }
+
+    const daysEl = $("#lockDays");
+    const hoursEl = $("#lockHours");
+    const minsEl = $("#lockMins");
+    const secsEl = $("#lockSecs");
+    const unlockAt = CONFIG.unlockAt.getTime();
+
+    const pad = (n) => String(Math.max(0, n)).padStart(2, "0");
+
+    const finishUnlock = () => {
+      lock.remove();
+      document.body.classList.remove("is-locked");
+      startOpeningIfReady();
+    };
+
+    const openLock = () => {
+      if (lock.classList.contains("is-opening")) return;
+      if (prefersReducedMotion()) {
+        finishUnlock();
+        return;
+      }
+      lock.classList.add("is-opening");
+      setTimeout(finishUnlock, 1700);
+    };
+
+    const tick = () => {
+      const diff = unlockAt - Date.now();
+      if (diff <= 0) {
+        if (daysEl) daysEl.textContent = "00";
+        if (hoursEl) hoursEl.textContent = "00";
+        if (minsEl) minsEl.textContent = "00";
+        if (secsEl) secsEl.textContent = "00";
+        openLock();
+        return false;
+      }
+
+      const totalSec = Math.floor(diff / 1000);
+      const d = Math.floor(totalSec / 86400);
+      const h = Math.floor((totalSec % 86400) / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+
+      if (daysEl) daysEl.textContent = pad(d);
+      if (hoursEl) hoursEl.textContent = pad(h);
+      if (minsEl) minsEl.textContent = pad(m);
+      if (secsEl) secsEl.textContent = pad(s);
+      return true;
+    };
+
+    if (Date.now() >= unlockAt) {
+      finishUnlock();
+      return;
+    }
+
+    document.body.classList.add("is-locked");
+    document.body.style.overflow = "hidden";
+    tick();
+    const id = setInterval(() => {
+      if (!tick()) clearInterval(id);
+    }, 250);
+
+    // Block accidental scroll / keys while locked
+    const block = (e) => {
+      if (document.body.classList.contains("is-locked")) e.preventDefault();
+    };
+    window.addEventListener("wheel", block, { passive: false });
+    window.addEventListener("touchmove", block, { passive: false });
+  }
+
   function initLoader() {
     const loader = $("#loader");
-    if (!loader) return;
+    if (!loader) {
+      loaderDone = true;
+      startOpeningIfReady();
+      return;
+    }
     setTimeout(() => {
       loader.classList.add("is-done");
-      document.body.style.overflow = "";
-      initOpeningSequence();
+      loaderDone = true;
+      startOpeningIfReady();
     }, CONFIG.loaderMs);
     document.body.style.overflow = "hidden";
   }
@@ -2494,6 +2587,7 @@
 
   /* ---------- Boot ---------- */
   onReady(() => {
+    initSiteLock();
     initLoader();
     initScrollProgress();
     initStarsCanvas();

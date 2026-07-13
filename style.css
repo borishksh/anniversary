@@ -70,6 +70,191 @@ body {
   cursor: default;
 }
 
+body.is-locked {
+  overflow: hidden !important;
+  height: 100svh;
+  touch-action: none;
+}
+
+body.is-locked .music-dock,
+body.is-locked .scroll-progress,
+body.is-locked .floating-messages,
+body.is-locked .tap-hearts {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ---------- Site countdown lock ---------- */
+.site-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  padding: var(--pad);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(196, 92, 122, 0.35), transparent 55%),
+    radial-gradient(ellipse at 20% 80%, rgba(212, 175, 106, 0.18), transparent 45%),
+    linear-gradient(165deg, #2a1220 0%, #1a0a14 45%, #0d050a 100%);
+  color: var(--cream);
+  text-align: center;
+  overflow: hidden;
+}
+
+.site-lock__glow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(247, 198, 216, 0.22), transparent 70%);
+  filter: blur(8px);
+  animation: lockGlow 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes lockGlow {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.site-lock__content {
+  position: relative;
+  z-index: 2;
+  max-width: 22rem;
+}
+
+.site-lock__eyebrow {
+  margin: 0 0 0.65rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+}
+
+.site-lock__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.85rem, 7vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.site-lock__desc {
+  margin: 0.75rem 0 1.75rem;
+  font-size: 0.95rem;
+  opacity: 0.75;
+}
+
+.site-lock__timer {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.site-lock__unit {
+  padding: 0.75rem 0.35rem;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+}
+
+.site-lock__num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 6vw, 1.9rem);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.site-lock__label {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.65;
+}
+
+.site-lock__hint {
+  margin: 1.35rem 0 0;
+  font-family: var(--font-hand);
+  font-size: 1.55rem;
+  color: var(--pink);
+}
+
+.site-lock__curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 52%;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(180deg, #3a1a2c, #1a0a14 55%, #0a0408);
+}
+
+.site-lock__curtain--left {
+  left: 0;
+  border-right: 1px solid rgba(247, 198, 216, 0.2);
+  transform-origin: left center;
+}
+
+.site-lock__curtain--right {
+  right: 0;
+  border-left: 1px solid rgba(247, 198, 216, 0.2);
+  transform-origin: right center;
+}
+
+.site-lock.is-opening .site-lock__content {
+  animation: lockContentOut 0.7s var(--ease-out) forwards;
+}
+
+.site-lock.is-opening .site-lock__curtain {
+  opacity: 1;
+}
+
+.site-lock.is-opening .site-lock__curtain--left {
+  animation: lockCurtainLeft 1.35s var(--ease-out) 0.25s forwards;
+}
+
+.site-lock.is-opening .site-lock__curtain--right {
+  animation: lockCurtainRight 1.35s var(--ease-out) 0.25s forwards;
+}
+
+.site-lock.is-opening .site-lock__glow {
+  animation: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+@keyframes lockContentOut {
+  to {
+    opacity: 0;
+    transform: scale(0.92) translateY(-12px);
+  }
+}
+
+@keyframes lockCurtainLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-105%); }
+}
+
+@keyframes lockCurtainRight {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(105%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-lock__glow { animation: none; }
+  .site-lock.is-opening .site-lock__curtain--left,
+  .site-lock.is-opening .site-lock__curtain--right {
+    animation-duration: 0.01ms;
+  }
+}
+
 img,
 video,
 canvas,

@@ -11,7 +11,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Special+Elite&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="is-locked">
+  <!-- ========== COUNTDOWN LOCK ========== -->
+  <div id="siteLock" class="site-lock" role="dialog" aria-modal="true" aria-labelledby="siteLockTitle">
+    <div class="site-lock__glow" aria-hidden="true"></div>
+    <div class="site-lock__content">
+      <p class="site-lock__eyebrow">Locked with love</p>
+      <h1 class="site-lock__title" id="siteLockTitle">This story opens soon</h1>
+      <p class="site-lock__desc">A little wait… then everything for you.</p>
+      <div class="site-lock__timer" aria-live="polite">
+        <div class="site-lock__unit">
+          <span class="site-lock__num" id="lockDays">0</span>
+          <span class="site-lock__label">Days</span>
+        </div>
+        <div class="site-lock__unit">
+          <span class="site-lock__num" id="lockHours">0</span>
+          <span class="site-lock__label">Hours</span>
+        </div>
+        <div class="site-lock__unit">
+          <span class="site-lock__num" id="lockMins">0</span>
+          <span class="site-lock__label">Minutes</span>
+        </div>
+        <div class="site-lock__unit">
+          <span class="site-lock__num" id="lockSecs">0</span>
+          <span class="site-lock__label">Seconds</span>
+        </div>
+      </div>
+      <p class="site-lock__hint">Opens at 6:30</p>
+    </div>
+    <div class="site-lock__curtain site-lock__curtain--left" aria-hidden="true"></div>
+    <div class="site-lock__curtain site-lock__curtain--right" aria-hidden="true"></div>
+  </div>
+
   <!-- ========== LOADING SCREEN ========== -->
   <div id="loader" class="loader" aria-live="polite" aria-label="Loading">
     <div class="loader__heart" aria-hidden="true">
