@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a0a14" />
+  <meta name="description" content="A love story — Happy First Anniversary" />
+  <title>Happy First Anniversary ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&family=Special+Elite&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- ========== LOADING SCREEN ========== -->
+  <div id="loader" class="loader" aria-live="polite" aria-label="Loading">
+    <div class="loader__heart" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </div>
+    <p class="loader__text">Opening our story…</p>
+    <div class="loader__bar"><div class="loader__bar-fill"></div></div>
+  </div>
+
+  <!-- Scroll progress -->
+  <div class="scroll-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Reading progress">
+    <div class="scroll-progress__fill" id="scrollProgress"></div>
+  </div>
+
+  <!-- Floating music mini-controller (synced with Our Playlist) -->
+  <div class="music-dock" id="musicDock">
+    <div class="music-dock__panel" id="musicDockPanel" hidden>
+      <div class="music-dock__meta">
+        <p class="music-dock__title" id="musicDockTitle">Our Playlist</p>
+        <p class="music-dock__artist" id="musicDockArtist">Tap play</p>
+      </div>
+      <div class="music-dock__controls">
+        <button type="button" class="music-dock__btn" id="musicDockPrev" aria-label="Previous song">⏮</button>
+        <button type="button" class="music-dock__btn music-dock__btn--play" id="musicDockPlay" aria-label="Play song" aria-pressed="false">
+          <span id="musicDockPlayIcon">▶</span>
+        </button>
+        <button type="button" class="music-dock__btn" id="musicDockNext" aria-label="Next song">⏭</button>
+      </div>
+    </div>
+    <button type="button" class="music-dock__toggle" id="musicDockToggle" aria-expanded="false" aria-controls="musicDockPanel" aria-label="Open music controls">
+      <span class="music-dock__note" aria-hidden="true">♪</span>
+    </button>
+  </div>
+
+  <!-- Floating love messages (injected by JS) -->
+  <div id="floatingMessages" class="floating-messages" aria-hidden="true"></div>
+
+  <!-- Heart cursor burst container -->
+  <div id="tapHearts" class="tap-hearts" aria-hidden="true"></div>
+
+  <main id="main">
+    <!-- ========== SECTION 1: OPENING ========== -->
+    <section class="section section--opening" id="opening" data-section="1">
+      <canvas id="starsCanvas" class="stars-canvas" aria-hidden="true"></canvas>
+      <div class="moon" aria-hidden="true"></div>
+      <div class="opening__content">
+        <h1 class="opening__title" id="openingTitle">
+          <span class="opening__line" data-reveal="1">Happy First Anniversary</span>
+          <span class="opening__heart" data-reveal="1" aria-hidden="true">❤️</span>
+        </h1>
+        <p class="opening__sub" data-reveal="2">For the girl who turned ordinary days into forever…</p>
+        <p class="opening__scroll" data-reveal="3">Scroll down…</p>
+        <div class="opening__arrow" data-reveal="3" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="petals" id="openingPetals" aria-hidden="true"></div>
+    </section>
+
+    <!-- ========== SECTION 2: LOVE STORY ========== -->
+    <section class="section section--story" id="story" data-section="2">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter One</p>
+          <h2 class="section__title">Our Love Story</h2>
+          <p class="section__desc">Every beginning has a spark. Here’s ours.</p>
+        </header>
+        <div class="timeline" id="timeline">
+          <div class="timeline__line" aria-hidden="true"><div class="timeline__line-fill" id="timelineFill"></div></div>
+
+          <article class="timeline__card reveal reveal--left">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/lys_gym.jpeg" alt="How we met at the gym" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2025-01">Jan, 2025</time>
+              <h3 class="timeline__title">How we met</h3>
+              <p class="timeline__text">I was so mesmerized — completely struck — the second I saw you working out. You looked so good I forgot what I was even doing there.</p>
+            </div>
+          </article>
+
+          <article class="timeline__card reveal reveal--right">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/bng_airport.jpeg" alt="Our first trip" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2025-06">June, 2025</time>
+              <h3 class="timeline__title">Our first trip</h3>
+              <p class="timeline__text">It all happened so fast and so naturally — like the universe was quietly rushing us toward each other, already sure we belonged together.</p>
+            </div>
+          </article>
+
+          <article class="timeline__card reveal reveal--left">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/GS_road.jpeg" alt="Our first drink" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2025-07">July, 2025</time>
+              <h3 class="timeline__title">Our first drink</h3>
+              <p class="timeline__text">Watching you get tipsy might be illegal — you’re somehow even cuter, softer, and funnier, and I couldn’t stop smiling at every little thing you did.</p>
+            </div>
+          </article>
+
+          <article class="timeline__card reveal reveal--right">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/first_pompom.jpeg" alt="Our first pompom" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2025-08">August, 2025</time>
+              <h3 class="timeline__title">Our first pompom</h3>
+              <p class="timeline__text">It all started with Pengu… and somehow that little beginning turned into more pompoms, more softness, and a whole world that keeps growing with us.</p>
+            </div>
+          </article>
+
+          <article class="timeline__card reveal reveal--left">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/morning_winter.jpeg" alt="Our first hike" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2025-12">Dec, 2025</time>
+              <h3 class="timeline__title">Our first hike</h3>
+              <p class="timeline__text">Cold air, shared steps, and those little couple moments in between — you looked so cute the whole way I barely noticed the climb.</p>
+            </div>
+          </article>
+
+          <article class="timeline__card reveal reveal--right">
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__media">
+              <img src="assets/images/her/thabal.jpeg" alt="Our first thabal" loading="lazy" width="600" height="400" />
+            </div>
+            <div class="timeline__body">
+              <time class="timeline__date" datetime="2026-03">March, 2026</time>
+              <h3 class="timeline__title">Our first thabal</h3>
+              <p class="timeline__text">You under the spotlight, in traditional dress — I swear something in me just knew. That night made me want to wife you up.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 3: PHOTO MEMORIES ========== -->
+    <section class="section section--gallery" id="gallery" data-section="3">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Two</p>
+          <h2 class="section__title">Photo Memories</h2>
+          <p class="section__desc">Tap any photo to remember.</p>
+        </header>
+        <div class="gallery" id="photoGallery">
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/arm_hug.jpeg" data-caption="Your arm around mine — home never needed an address." aria-label="Open arm hug memory">
+            <img src="assets/images/her/arm_hug.jpeg" alt="Holding onto his arm, smiling" loading="lazy" width="450" height="600" />
+          </button>
+          <button type="button" class="gallery__item gallery__item--tall reveal" data-src="assets/images/her/bday_date.jpeg" data-caption="Birthday soft light, soft smiles, and you — my favorite kind of celebration." aria-label="Open birthday date memory">
+            <img src="assets/images/her/bday_date.jpeg" alt="Birthday date selfie together" loading="lazy" width="450" height="700" />
+          </button>
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/film_date.jpeg" data-caption="Even through a screen, late nights with you feel like the best kind of date." aria-label="Open film date memory">
+            <img src="assets/images/her/film_date.jpeg" alt="Late night video call date" loading="lazy" width="450" height="600" />
+          </button>
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/shadow.jpeg" data-caption="Two shadows, one story — side by side, always." aria-label="Open shadow memory">
+            <img src="assets/images/her/shadow.jpeg" alt="Our shadows together on the grass" loading="lazy" width="450" height="550" />
+          </button>
+          <button type="button" class="gallery__item gallery__item--wide reveal" data-src="assets/images/her/ikea.jpeg" data-caption="Wandering IKEA like we were already building a home." aria-label="Open IKEA memory">
+            <img src="assets/images/her/ikea.jpeg" alt="Browsing an IKEA kitchen together" loading="lazy" width="600" height="400" />
+          </button>
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/taxi_kiss.jpeg" data-caption="City lights outside. Your kiss inside. Perfect traffic." aria-label="Open taxi kiss memory">
+            <img src="assets/images/her/taxi_kiss.jpeg" alt="Kissing in the taxi at night" loading="lazy" width="450" height="600" />
+          </button>
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/trips_guwahati.jpeg" data-caption="Sunset sand, your hand in mine — Guwahati never looked this soft." aria-label="Open Guwahati trip memory">
+            <img src="assets/images/her/trips_guwahati.jpeg" alt="Holding hands at sunset in Guwahati" loading="lazy" width="450" height="650" />
+          </button>
+          <button type="button" class="gallery__item reveal" data-src="assets/images/her/bike_ride4.jpeg" data-caption="Helmet on, heart full — the night feels safer with you holding on." aria-label="Open bike ride memory">
+            <img src="assets/images/her/bike_ride4.jpeg" alt="Night bike ride together" loading="lazy" width="450" height="600" />
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery modal -->
+    <div class="modal" id="galleryModal" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Photo viewer">
+      <button type="button" class="modal__close" id="galleryClose" aria-label="Close photo">×</button>
+      <img class="modal__img" id="galleryModalImg" alt="" />
+      <p class="modal__caption" id="galleryModalCaption"></p>
+    </div>
+
+    <!-- ========== SECTION 4: REASONS ========== -->
+    <section class="section section--reasons" id="reasons" data-section="4">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Three</p>
+          <h2 class="section__title">Reasons Why I Love You</h2>
+          <p class="section__desc">Six reasons. Tap a card to flip it.</p>
+        </header>
+        <div class="reasons" id="reasonsGrid"></div>
+        <p class="reasons-outro reveal">There are infinite reasons I love you… I just couldn’t fit them all on these little cards.</p>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 5: JOURNEY MAP ========== -->
+    <section class="section section--journey" id="journey" data-section="5">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Four</p>
+          <h2 class="section__title">Our Journey</h2>
+          <p class="section__desc">Swipe along the path we walked.</p>
+        </header>
+      </div>
+      <div class="journey-scroller" id="journeyScroller" tabindex="0" aria-label="Horizontal journey timeline">
+        <div class="journey-track" id="journeyTrack">
+          <svg class="journey-path" viewBox="0 0 1800 220" preserveAspectRatio="none" aria-hidden="true">
+            <path id="journeySvgPath" d="M40,160 C160,40 260,200 380,110 S560,50 700,150 S900,40 1050,120 S1250,200 1400,90 S1600,40 1760,130" fill="none" stroke="rgba(212,175,155,0.45)" stroke-width="3" stroke-dasharray="8 6"/>
+          </svg>
+          <div class="journey-couple" id="journeyCouple" aria-hidden="true">👫</div>
+          <div class="journey-milestone" data-mile="0"><span>❤️</span><em>Met</em></div>
+          <div class="journey-milestone" data-mile="1"><span>💪</span><em>Gym</em></div>
+          <div class="journey-milestone" data-mile="2"><span>🌸</span><em>Date</em></div>
+          <div class="journey-milestone" data-mile="3"><span>✈</span><em>Trip</em></div>
+          <div class="journey-milestone" data-mile="4"><span>💋</span><em>Makeout</em></div>
+          <div class="journey-milestone" data-mile="5"><span>🎂</span><em>Birthday</em></div>
+          <div class="journey-milestone" data-mile="6"><span>💕</span><em>Anniversary</em></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 6: LOVE NOTES ========== -->
+    <section class="section section--notes" id="notes" data-section="6">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Five</p>
+          <h2 class="section__title">Little Love Notes</h2>
+          <p class="section__desc">Tap a note to unfold it.</p>
+        </header>
+        <div class="notes" id="notesBoard">
+          <button type="button" class="sticky-note reveal" data-note="0" style="--rot:-4deg; --hue:45" aria-label="Open love note 1">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>You’re my calm.</span>
+          </button>
+          <button type="button" class="sticky-note reveal" data-note="1" style="--rot:3deg; --hue:330" aria-label="Open love note 2">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>Miss you always.</span>
+          </button>
+          <button type="button" class="sticky-note reveal" data-note="2" style="--rot:-2deg; --hue:200" aria-label="Open love note 3">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>My favorite person.</span>
+          </button>
+          <button type="button" class="sticky-note reveal" data-note="3" style="--rot:5deg; --hue:120" aria-label="Open love note 4">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>Forever yours.</span>
+          </button>
+          <button type="button" class="sticky-note reveal" data-note="4" style="--rot:-6deg; --hue:280" aria-label="Open love note 5">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>Thank you for us.</span>
+          </button>
+          <button type="button" class="sticky-note reveal" data-note="5" style="--rot:2deg; --hue:15" aria-label="Open love note 6">
+            <span class="sticky-note__pin" aria-hidden="true"></span>
+            <span>You make me soft.</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Note modal -->
+    <div class="modal modal--paper" id="noteModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="noteModalText">
+      <button type="button" class="modal__close" id="noteClose" aria-label="Close note">×</button>
+      <div class="paper-letter" id="paperLetter">
+        <p class="paper-letter__text handwritten" id="noteModalText"></p>
+      </div>
+    </div>
+
+    <!-- ========== MID: 2010 DIGITAL CAMERA ========== -->
+    <section class="section section--digicam" id="digicam" data-section="digicam">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Flashback Chapter</p>
+          <h2 class="section__title">Point &amp; Shoot</h2>
+          <p class="section__desc">Soft little flashbacks of us — press the shutter and remember.</p>
+        </header>
+
+        <div class="digicam reveal" id="digicamBody" aria-label="Digital camera photo viewer">
+          <div class="digicam__top">
+            <span class="digicam__flash" aria-hidden="true"></span>
+            <span class="digicam__brand">CYBERSHOT♥</span>
+            <span class="digicam__mic" aria-hidden="true"></span>
+          </div>
+
+          <div class="digicam__screen-wrap">
+            <div class="digicam__screen" id="digicamScreen">
+              <div class="digicam__lcd">
+                <img class="digicam__photo is-active" src="assets/images/her/digi_cam1.jpeg" alt="Flashback photo 1" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam2.jpeg" alt="Flashback photo 2" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam3.jpeg" alt="Flashback photo 3" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam4.jpeg" alt="Flashback photo 4" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam5.jpeg" alt="Flashback photo 5" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam6.jpeg" alt="Flashback photo 6" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam7.jpeg" alt="Flashback photo 7" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam8.jpeg" alt="Flashback photo 8" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <img class="digicam__photo" src="assets/images/her/digi_cam9.jpeg" alt="Flashback photo 9" data-date="♡ US" loading="lazy" width="640" height="480" />
+                <div class="digicam__haze" aria-hidden="true"></div>
+                <div class="digicam__grain" aria-hidden="true"></div>
+                <div class="digicam__hud">
+                  <span class="digicam__batt" aria-hidden="true">▮▮▮▯</span>
+                  <span class="digicam__mode">AUTO</span>
+                  <span class="digicam__count" id="digicamCount">1/9</span>
+                  <span class="digicam__stamp" id="digicamStamp">♡ US</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="digicam__controls">
+            <button type="button" class="digicam__btn" id="digicamPrev" aria-label="Previous photo">◀</button>
+            <button type="button" class="digicam__shutter" id="digicamShutter" aria-label="Next photo shutter">
+              <span></span>
+            </button>
+            <button type="button" class="digicam__btn" id="digicamNext" aria-label="Next photo">▶</button>
+          </div>
+          <p class="digicam__hint">Press the shutter to flip through memories</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 6: GAMES ========== -->
+    <section class="section section--games" id="games" data-section="6">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Six</p>
+          <h2 class="section__title">Fun Couple Games</h2>
+          <p class="section__desc">Play a little. Smile a lot.</p>
+        </header>
+
+        <div class="game-tabs reveal" role="tablist" aria-label="Choose a game">
+          <button type="button" class="game-tab is-active" role="tab" aria-selected="true" data-game="hearts">Find the Heart</button>
+          <button type="button" class="game-tab" role="tab" aria-selected="false" data-game="memory">Memory Match</button>
+        </div>
+
+        <!-- Game 1 -->
+        <div class="game-panel is-active" id="gameHearts" role="tabpanel">
+          <p class="game-hint">One heart is special. Find it.</p>
+          <div class="find-hearts" id="findHearts" aria-label="Floating hearts game"></div>
+          <p class="game-result" id="heartsResult" hidden>You found my heart ❤️</p>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="game-panel" id="gameMemory" role="tabpanel" hidden>
+          <p class="game-hint">Match the pairs.</p>
+          <div class="memory-board" id="memoryBoard" aria-label="Memory match board"></div>
+          <p class="game-result" id="memoryResult" hidden>Perfect match — just like us 💕</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CHAPTER 7: TOO HOT TO HANDLE ========== -->
+    <section class="section section--spicy" id="spicy" data-section="7" aria-label="Chapter Seven — spicy surprise">
+      <div class="spicy-embers" id="spicyEmbers" aria-hidden="true"></div>
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow spicy-eyebrow">Chapter Seven · 18+</p>
+          <h2 class="section__title spicy-title">Too Hot To Handle</h2>
+          <p class="section__desc spicy-desc">She’s dangerously sexy. Wipe the steam… if you can handle it.</p>
+        </header>
+
+        <div class="spicy-badge reveal" aria-hidden="true">
+          <span>CLASSIFIED</span>
+          <span>EYES ONLY</span>
+        </div>
+
+        <div class="spicy-frame reveal" id="spicyFrame">
+          <div class="spicy-photo">
+            <!-- Spicy photo -->
+            <img
+              id="spicyImg"
+              src="assets/images/her/hot.jpeg"
+              alt="A blurred spicy photo of you — intentionally soft and mysterious"
+              loading="lazy"
+              width="600"
+              height="900"
+            />
+            <div class="spicy-blur-veil" id="spicyBlurVeil" aria-hidden="true"></div>
+            <div class="spicy-lace" aria-hidden="true"></div>
+          </div>
+
+          <canvas
+            id="spicyFog"
+            class="spicy-fog"
+            width="340"
+            height="480"
+            aria-label="Wipe the steamy glass to peek"
+            role="img"
+          ></canvas>
+
+          <div class="spicy-hint" id="spicyHint">
+            <span class="spicy-hint__finger" aria-hidden="true">👆</span>
+            Wipe the fog…
+          </div>
+
+          <div class="spicy-stamp" aria-hidden="true">TOO HOT 🔥</div>
+        </div>
+
+        <div class="spicy-heat reveal" aria-label="Heat level">
+          <div class="spicy-heat__label">
+            <span>Heat</span>
+            <span id="spicyHeatPct">0%</span>
+          </div>
+          <div class="spicy-heat__track">
+            <div class="spicy-heat__fill" id="spicyHeatFill"></div>
+          </div>
+        </div>
+
+        <p class="spicy-line" id="spicyLine" aria-live="polite">She’s looking dangerous tonight…</p>
+
+        <div class="spicy-actions reveal">
+          <button type="button" class="spicy-hold" id="spicyHold" aria-label="Hold to feel the heat">
+            Hold for heat 🔥
+          </button>
+          <p class="spicy-hold-note">Still won’t show everything — some mysteries stay blurry on purpose.</p>
+        </div>
+
+        <ul class="spicy-compliments" id="spicyCompliments" aria-label="Compliments unlocked by heat">
+          <li data-heat="15">That body? Criminal.</li>
+          <li data-heat="35">Soft skin. Killer curves. I’m obsessed.</li>
+          <li data-heat="55">You’re not just pretty — you’re dangerously sexy.</li>
+          <li data-heat="75">Every inch of you makes my brain short-circuit.</li>
+          <li data-heat="95">Hottest girl alive. And she’s mine. 🔥</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ========== SILLY: KISS MASH ========== -->
+    <section class="section section--mash" id="mash" data-section="fun-mash">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Tap Chapter</p>
+          <h2 class="section__title">Kiss Collector</h2>
+          <p class="section__desc">Mash the button. Fill the jar. Claim your kisses.</p>
+        </header>
+        <div class="mash-arena reveal">
+          <div class="kiss-jar" id="kissJar" aria-hidden="true">
+            <div class="kiss-jar__fill" id="kissJarFill"></div>
+            <span class="kiss-jar__label" id="kissCount">0</span>
+          </div>
+          <button type="button" class="mash-btn" id="mashBtn" aria-label="Tap for kisses">💋 Tap!</button>
+          <p class="mash-msg" id="mashMsg">Start tapping, cutie.</p>
+          <div class="mash-milestones" id="mashMilestones" aria-live="polite"></div>
+        </div>
+
+        <!-- Kiss reward video (circular) -->
+        <div class="kiss-video" id="kissVideoModal" hidden aria-live="polite">
+          <div class="kiss-video__ring">
+            <video
+              id="kissVideo"
+              class="kiss-video__player"
+              src="assets/images/him/kiss.mp4"
+              playsinline
+              preload="metadata"
+              aria-label="Kiss reward video"
+            ></video>
+          </div>
+          <p class="kiss-video__caption">Jar full — kiss unlocked 💋</p>
+          <button type="button" class="kiss-video__close" id="kissVideoClose" hidden>Keep collecting</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SILLY: WHO'S MORE LIKELY ========== -->
+    <section class="section section--likely" id="likely" data-section="fun-likely">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Roast Chapter</p>
+          <h2 class="section__title">Who’s More Likely To…</h2>
+          <p class="section__desc">Spicy. Silly. Dangerous. Pick Him or Her — then suffer the roast.</p>
+        </header>
+        <div class="likely-card reveal" id="likelyCard">
+          <p class="likely-q" id="likelyQ"></p>
+          <div class="likely-opts">
+            <button type="button" class="likely-opt" id="likelyHim" data-pick="him">Him 🧔</button>
+            <button type="button" class="likely-opt" id="likelyHer" data-pick="her">Her 👩</button>
+          </div>
+          <p class="likely-react" id="likelyReact" hidden aria-live="polite"></p>
+          <p class="likely-score" id="likelyScore">Him 0 · Her 0</p>
+          <button type="button" class="likely-next" id="likelyNext" hidden>Next roast →</button>
+        </div>
+        <div class="bouncy-hearts" id="bouncyHearts" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ========== TINDER: FIND YOUR HUSBAND ========== -->
+    <section class="section section--tinder" id="tinder" data-section="tinder">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Match Chapter</p>
+          <h2 class="section__title">Find Your Soulmate</h2>
+          <p class="section__desc">Swipe right to like. Swipe left to pass.</p>
+        </header>
+
+        <div class="td-phone reveal" aria-label="Tinder-style swipe app">
+          <div class="td-status" aria-hidden="true">
+            <span>9:41</span>
+            <span class="td-status__icons">▮▮▮ ☀︎</span>
+          </div>
+
+          <header class="td-top">
+            <button type="button" class="td-icon-btn" aria-label="Profile" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="#c7c7c7" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 19c1.5-3.5 4-5 7-5s5.5 1.5 7 5"/></svg>
+            </button>
+            <div class="td-logo" aria-hidden="true">
+              <svg viewBox="0 0 24 28" width="28" height="32"><defs><linearGradient id="tdFlame" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fd267a"/><stop offset="100%" stop-color="#ff6036"/></linearGradient></defs><path fill="url(#tdFlame)" d="M12.2 1.2c.4 3.2-1.4 5.2-3.2 7.1C7 10.3 5.2 12.2 5.2 15.6c0 4.1 3.1 7.2 7 7.2s7-3.1 7-7.2c0-4.8-3.4-7.3-5.2-10.2-.7-1.1-1.1-2.2-1.8-4.2z"/></svg>
+            </div>
+            <button type="button" class="td-icon-btn" aria-label="Safety" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#c7c7c7" stroke-width="1.8"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-3z"/></svg>
+            </button>
+          </header>
+
+          <div class="td-stack" id="tinderStack" aria-label="Swipe profiles left or right"></div>
+
+          <div class="td-actions">
+            <button type="button" class="td-act td-act--rewind" aria-label="Rewind" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#f5b342" stroke-width="2.2"><path d="M9 7H5v4"/><path d="M5 11a7 7 0 1 0 2-4.9"/></svg>
+            </button>
+            <button type="button" class="td-act td-act--nope" id="tinderNope" aria-label="Nope">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#ff4458" stroke-width="2.6" stroke-linecap="round"><path d="M7 7l10 10M17 7L7 17"/></svg>
+            </button>
+            <button type="button" class="td-act td-act--super" aria-label="Super Like" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#2db0ff"><path d="M12 2.5l2.6 6.4 6.9.6-5.2 4.5 1.6 6.7L12 17.2 6.1 20.7l1.6-6.7L2.5 9.5l6.9-.6L12 2.5z"/></svg>
+            </button>
+            <button type="button" class="td-act td-act--like" id="tinderLike" aria-label="Like">
+              <svg viewBox="0 0 24 24" width="30" height="30" fill="#2dd36f"><path d="M12 21s-7.2-4.4-9.5-8.2C.7 9.8 2.2 6.5 5.4 5.6c1.8-.5 3.6.2 4.7 1.6C11.2 5.8 13 5.1 14.8 5.6c3.2.9 4.7 4.2 2.9 7.2C19.2 16.6 12 21 12 21z"/></svg>
+            </button>
+            <button type="button" class="td-act td-act--boost" aria-label="Boost" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="#a855f7"><path d="M13 2L4 14h7l-1 8 10-14h-7l0-6z"/></svg>
+            </button>
+          </div>
+
+          <nav class="td-tabs" aria-label="Tinder tabs">
+            <button type="button" class="td-tab is-active" aria-current="page">
+              <svg viewBox="0 0 24 24" width="26" height="26"><defs><linearGradient id="tdTabFlame" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#fd267a"/><stop offset="100%" stop-color="#ff6036"/></linearGradient></defs><path fill="url(#tdTabFlame)" d="M12.2 2c.4 2.8-1.2 4.5-2.8 6.1C7.6 9.9 6 11.6 6 14.4c0 3.5 2.7 6.1 6 6.1s6-2.6 6-6.1c0-4.1-2.9-6.2-4.5-8.7C13 4.7 12.7 3.7 12.2 2z"/></svg>
+            </button>
+            <button type="button" class="td-tab" tabindex="-1" aria-label="Explore">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#bdbdbd" stroke-width="1.8"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg>
+            </button>
+            <button type="button" class="td-tab" tabindex="-1" aria-label="Top Picks">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#bdbdbd" stroke-width="1.8"><path d="M12 3l2.2 5.5 5.8.5-4.4 3.8 1.4 5.6L12 15.8 7 18.4l1.4-5.6L4 9l5.8-.5L12 3z"/></svg>
+            </button>
+            <button type="button" class="td-tab" tabindex="-1" aria-label="Messages">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#bdbdbd" stroke-width="1.8"><path d="M5 6h14v10H8l-3 3V6z"/></svg>
+            </button>
+            <button type="button" class="td-tab" tabindex="-1" aria-label="Profile">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#bdbdbd" stroke-width="1.8"><circle cx="12" cy="9" r="3"/><path d="M6 19c1.2-2.8 3.4-4 6-4s4.8 1.2 6 4"/></svg>
+            </button>
+          </nav>
+        </div>
+        <p class="td-status-msg" id="tinderStatus" aria-live="polite">Swipe ← left or right → to decide</p>
+      </div>
+
+      <div class="tinder-match" id="tinderMatch" hidden aria-live="assertive">
+        <div class="tinder-match__inner">
+          <p class="tinder-match__its">IT’S A MATCH!</p>
+          <p class="tinder-match__sub">You and <span id="tinderMatchName"></span> liked each other.</p>
+          <div class="tinder-match__actions">
+            <button type="button" class="tinder-match__msg" id="tinderMatchClose">KEEP SWIPING</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== OURFLIX (Netflix-style) ========== -->
+    <section class="section section--ourflix" id="ourflix" data-section="ourflix">
+      <div class="nf" id="ourflixRoot">
+        <!-- Profile picker -->
+        <div class="nf-profiles" id="ourflixProfiles">
+          <div class="nf-profiles__logo" aria-hidden="true">OURFLIX</div>
+          <h2 class="nf-profiles__who">Who's watching?</h2>
+          <div class="nf-profiles__grid">
+            <button type="button" class="nf-profile" data-profile="her" aria-label="Watch as Her">
+              <span class="nf-avatar nf-avatar--her" aria-hidden="true">
+                <span class="nf-avatar__mark">👑</span>
+                <span class="nf-avatar__tag">CEO of Cute</span>
+              </span>
+              <span class="nf-profile__name">Her</span>
+            </button>
+            <button type="button" class="nf-profile" data-profile="him" aria-label="Watch as Him">
+              <span class="nf-avatar nf-avatar--him" aria-hidden="true">
+                <span class="nf-avatar__mark">🤓</span>
+                <span class="nf-avatar__tag">Emotional Support Man</span>
+              </span>
+              <span class="nf-profile__name">Him</span>
+            </button>
+            <button type="button" class="nf-profile" data-profile="us" aria-label="Watch as Us">
+              <span class="nf-avatar nf-avatar--us" aria-hidden="true">
+                <span class="nf-avatar__mark">💑</span>
+                <span class="nf-avatar__tag">Group Chat of 2</span>
+              </span>
+              <span class="nf-profile__name">Us</span>
+            </button>
+          </div>
+          <button type="button" class="nf-manage" tabindex="-1">Manage Profiles</button>
+        </div>
+
+        <!-- Home -->
+        <div class="nf-home" id="ourflixHome" hidden>
+          <header class="nf-topnav">
+            <span class="nf-topnav__logo">OURFLIX</span>
+            <div class="nf-topnav__right">
+              <svg class="nf-topnav__search" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#fff" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-3.5-3.5"/></svg>
+              <button type="button" class="nf-topnav__avatar" id="ourflixSwitch" aria-label="Switch profile"></button>
+            </div>
+          </header>
+
+          <div class="nf-cats" aria-hidden="true">
+            <span>TV Shows</span>
+            <span>Movies</span>
+            <span>Categories ▾</span>
+          </div>
+
+          <div class="nf-hero" id="ourflixHero">
+            <video class="nf-hero__video" id="ourflixHeroVideo" muted playsinline preload="metadata" aria-hidden="true"></video>
+            <div class="nf-hero__shade"></div>
+            <div class="nf-hero__meta">
+              <p class="nf-hero__brand"><span>N</span> SERIES</p>
+              <h3 class="nf-hero__title" id="ourflixHeroTitle">Your Drunk Love Story</h3>
+              <p class="nf-hero__tags" id="ourflixHeroDesc">Romantic · Chaotic · Limited Series</p>
+              <div class="nf-hero__btns">
+                <button type="button" class="nf-btn nf-btn--play" id="ourflixPlayHero" aria-label="Play featured title">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="#000"><path d="M8 5v14l11-7z"/></svg>
+                  Play
+                </button>
+                <button type="button" class="nf-btn nf-btn--list" tabindex="-1">
+                  <span>+</span> My List
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="nf-rows" id="ourflixRows"></div>
+
+          <nav class="nf-bottom" aria-label="Ourflix navigation">
+            <button type="button" class="nf-bottom__item is-active">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1v-10.5z"/></svg>
+              <span>Home</span>
+            </button>
+            <button type="button" class="nf-bottom__item" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="14" rx="2"/><path d="M8 9h8M8 13h5"/></svg>
+              <span>New &amp; Hot</span>
+            </button>
+            <button type="button" class="nf-bottom__item" tabindex="-1">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="7" height="14" rx="1"/><rect x="14" y="5" width="7" height="14" rx="1"/></svg>
+              <span>Games</span>
+            </button>
+            <button type="button" class="nf-bottom__item" id="ourflixMyNetflix" tabindex="-1">
+              <span class="nf-bottom__mini-avatar"></span>
+              <span>My Netflix</span>
+            </button>
+          </nav>
+        </div>
+      </div>
+
+      <div class="ourflix-player" id="ourflixPlayer" hidden role="dialog" aria-modal="true" aria-label="Video player">
+        <button type="button" class="ourflix-player__close" id="ourflixPlayerClose" aria-label="Close player">✕</button>
+        <div class="ourflix-player__stage">
+          <video id="ourflixVideo" controls playsinline>
+            <source src="" type="video/mp4" />
+          </video>
+          <p class="ourflix-player__title" id="ourflixPlayerTitle"></p>
+          <p class="ourflix-player__desc" id="ourflixPlayerDesc"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 8: LOVE COUNTER ========== -->
+    <section class="section section--counter" id="counter" data-section="8">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Eight</p>
+          <h2 class="section__title">Together For</h2>
+          <p class="section__desc">Every second counts.</p>
+        </header>
+        <div class="love-counter reveal" id="loveCounter" aria-live="polite">
+          <div class="counter-unit"><span class="counter-unit__num" id="countDays">0</span><span class="counter-unit__label">Days</span></div>
+          <div class="counter-unit"><span class="counter-unit__num" id="countHours">0</span><span class="counter-unit__label">Hours</span></div>
+          <div class="counter-unit"><span class="counter-unit__num" id="countMins">0</span><span class="counter-unit__label">Minutes</span></div>
+          <div class="counter-unit"><span class="counter-unit__num" id="countSecs">0</span><span class="counter-unit__label">Seconds</span></div>
+        </div>
+        <div class="love-meter reveal" aria-hidden="true">
+          <div class="love-meter__track"><div class="love-meter__fill" id="loveMeterFill"></div></div>
+          <p class="love-meter__label">Love meter: ∞</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 9: LOVE LETTER ========== -->
+    <section class="section section--letter" id="letter" data-section="9">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Nine</p>
+          <h2 class="section__title">A Letter For You</h2>
+          <p class="section__desc">Tap the envelope.</p>
+        </header>
+        <button type="button" class="envelope reveal" id="envelope" aria-label="Open love letter" aria-expanded="false">
+          <div class="envelope__flap"></div>
+          <div class="envelope__body"></div>
+          <div class="envelope__heart" aria-hidden="true">💌</div>
+        </button>
+        <div class="letter-sheet" id="letterSheet" hidden>
+          <div class="letter-sheet__inner">
+            <p class="letter-sheet__text handwritten" id="letterText"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== NEWSPAPER: BEST GF EVER (NYT-style) ========== -->
+    <section class="section section--news" id="newspaper" data-section="newspaper">
+      <div class="nyt reveal">
+        <header class="nyt-mast">
+          <div class="nyt-mast__side nyt-mast__side--left">
+            <p>“All the Love That’s Fit to Print”</p>
+          </div>
+          <h2 class="nyt-mast__title">The Daily Darling</h2>
+          <div class="nyt-mast__side nyt-mast__side--right">
+            <p>LATE CITY<br />EDITION</p>
+          </div>
+        </header>
+
+        <div class="nyt-dateline">
+          <span>VOL. I… No. 365</span>
+          <span>♥ CITY, ANNIVERSARY SUNDAY</span>
+          <span>ONE HEART</span>
+        </div>
+
+        <h3 class="nyt-banner">
+          BEST GIRLFRIEND EVER DECLARED;<br />
+          <span>WORLD AGREES SHE’S THE ONE;</span><br />
+          <em>HE CALLS TODAY FOREVER DAY</em>
+        </h3>
+
+        <div class="nyt-grid">
+          <aside class="nyt-col nyt-col--left">
+            <article class="nyt-story">
+              <h4>SMILE TRAFFIC NEAR RECORD LEVEL</h4>
+              <p>Pedestrians stopped mid-stride after spotting her grin. Authorities advise sunglasses and emotional preparedness.</p>
+            </article>
+            <article class="nyt-story">
+              <h4>HARD WORKING, STILL GLOWING</h4>
+              <p>Colleagues report unmatched hustle. Friends report unmatched kindness. He reports unmatched luck.</p>
+            </article>
+            <article class="nyt-story">
+              <h4>LOCAL MAN “COMPLETELY GONE”</h4>
+              <p>Witnesses confirm boyfriend has been smiling at his phone since approximately forever ago.</p>
+            </article>
+          </aside>
+
+          <div class="nyt-center">
+            <p class="nyt-photo-kicker">THE HEADLINE HERSELF — SPECIAL PORTRAIT</p>
+            <figure class="nyt-photo">
+              <img src="assets/images/her/news_paper.jpeg" alt="Portrait of the best girlfriend ever" loading="lazy" width="700" height="520" />
+              <figcaption>
+                <strong>ABOVE</strong> — Confirmed: most beautiful, hardworking, and dangerously charming. Experts recommend staring safely. Boyfriend unavailable for comment because he was too busy being proud.
+              </figcaption>
+            </figure>
+
+            <div class="nyt-body-split">
+              <p><strong>CITY —</strong> In a stunning but unsurprising development, officials confirm she remains undefeated in kindness, beauty, brains, and “makes everything better just by existing.”</p>
+              <p>Witnesses describe her laugh as a national treasure, her work ethic as unfairly inspiring, and her presence as the softest kind of chaos. When asked for comment, her boyfriend stated only: “She’s the one. Print that.”</p>
+            </div>
+          </div>
+
+          <aside class="nyt-col nyt-col--right">
+            <article class="nyt-story">
+              <h4>OPINION: OUT OF HIS LEAGUE</h4>
+              <p>And yet she stays. Analysts call it “a miracle with excellent taste.”</p>
+            </article>
+            <article class="nyt-story">
+              <h4>WEATHER: 100% CHANCE OF LOVE</h4>
+              <p>Scattered kisses overnight. Warm fronts expected near hand-holding zones.</p>
+            </article>
+            <article class="nyt-story">
+              <h4>CLASSIFIEDS</h4>
+              <p>WANTED: Forever. STATUS: Already found. REWARD: Her smile.</p>
+            </article>
+            <blockquote class="nyt-quote">“Hardworking. Soft-hearted. Sexy. Brilliant. Mine.”</blockquote>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 10: PROMISE CARDS ========== -->
+    <section class="section section--promises" id="promises" data-section="10">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Ten</p>
+          <h2 class="section__title">My Promises</h2>
+          <p class="section__desc">Swipe through each one.</p>
+        </header>
+        <div class="promise-deck" id="promiseDeck" aria-label="Swipeable promise cards">
+          <div class="promise-card" data-index="0"><p>I promise to support you.</p></div>
+          <div class="promise-card" data-index="1"><p>I promise to make you smile.</p></div>
+          <div class="promise-card" data-index="2"><p>I promise to stay.</p></div>
+          <div class="promise-card" data-index="3"><p>I promise to listen.</p></div>
+          <div class="promise-card" data-index="4"><p>I promise to grow with you.</p></div>
+          <div class="promise-card" data-index="5"><p>I promise forever, one day at a time.</p></div>
+        </div>
+        <p class="promise-hint reveal">Swipe left or right</p>
+        <div class="promise-dots" id="promiseDots" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 11: FUTURE DREAMS ========== -->
+    <section class="section section--dreams" id="dreams" data-section="11">
+      <div class="clouds" aria-hidden="true">
+        <span class="cloud cloud--1"></span>
+        <span class="cloud cloud--2"></span>
+        <span class="cloud cloud--3"></span>
+      </div>
+      <div class="butterflies" id="butterflies" aria-hidden="true"></div>
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Eleven</p>
+          <h2 class="section__title">Future Dreams</h2>
+          <p class="section__desc">Everything we’re still writing.</p>
+        </header>
+        <ol class="dreams-timeline">
+          <li class="dream reveal"><span class="dream__icon" aria-hidden="true">🌍</span><div><h3>Travel together</h3><p>New cities, shared sunsets, endless photos.</p></div></li>
+          <li class="dream reveal"><span class="dream__icon" aria-hidden="true">🏠</span><div><h3>New home</h3><p>A place that feels like us.</p></div></li>
+          <li class="dream reveal"><span class="dream__icon" aria-hidden="true">🐾</span><div><h3>Pets</h3><p>Tiny paws and bigger love.</p></div></li>
+          <li class="dream reveal"><span class="dream__icon" aria-hidden="true">💍</span><div><h3>Wedding</h3><p>A promise in front of the world.</p></div></li>
+          <li class="dream reveal"><span class="dream__icon" aria-hidden="true">🤍</span><div><h3>Growing old</h3><p>Side by side, always.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 13: MUSIC ========== -->
+    <section class="section section--vinyl" id="vinyl" data-section="13">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Thirteen</p>
+          <h2 class="section__title">Our Playlist</h2>
+          <p class="section__desc">Press play and sway a little.</p>
+        </header>
+        <div class="vinyl-player reveal">
+          <div class="vinyl" id="vinylDisc" aria-hidden="true">
+            <div class="vinyl__label">♡</div>
+          </div>
+          <div class="vinyl-meta">
+            <h3 class="vinyl-title" id="vinylTitle">Our Song</h3>
+            <p class="vinyl-artist" id="vinylArtist">Pick a track below</p>
+            <div class="vinyl-progress" id="vinylProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Song progress">
+              <div class="vinyl-progress__fill" id="vinylProgress"></div>
+            </div>
+            <div class="vinyl-controls">
+              <button type="button" class="vinyl-btn vinyl-btn--side" id="vinylPrev" aria-label="Previous song">⏮</button>
+              <button type="button" class="vinyl-btn" id="vinylPlay" aria-label="Play song" aria-pressed="false">
+                <span id="vinylPlayIcon">▶</span>
+              </button>
+              <button type="button" class="vinyl-btn vinyl-btn--side" id="vinylNext" aria-label="Next song">⏭</button>
+            </div>
+          </div>
+          <ol class="vinyl-playlist" id="vinylPlaylist" aria-label="Our songs"></ol>
+        </div>
+        <audio id="ourSong" preload="metadata"></audio>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 14: SCRATCH CARD ========== -->
+    <section class="section section--scratch" id="scratch" data-section="14">
+      <div class="section__inner">
+        <header class="section__header reveal">
+          <p class="section__eyebrow">Chapter Fourteen</p>
+          <h2 class="section__title">Scratch Card Surprise</h2>
+          <p class="section__desc">Scratch gently with your finger.</p>
+        </header>
+        <div class="scratch-wrap reveal">
+          <div class="scratch-prize" aria-hidden="true">I Love You Forever ❤️</div>
+          <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="180" aria-label="Scratch to reveal surprise"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SECTION 15: FINALE ========== -->
+    <section class="section section--finale" id="finale" data-section="15">
+      <canvas id="finaleCanvas" class="finale-canvas" aria-hidden="true"></canvas>
+      <div class="finale__content">
+        <p class="finale__line" data-finale="1">You are my favorite chapter.</p>
+        <p class="finale__line" data-finale="2">I love you</p>
+        <p class="finale__line" data-finale="3">Happy First Anniversary</p>
+        <div class="finale__heart" data-finale="4" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
