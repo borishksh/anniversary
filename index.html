@@ -38,9 +38,25 @@
     body.is-locked .music-dock,
     body.is-locked .scroll-progress { visibility: hidden !important; pointer-events: none !important; }
   </style>
-  <link rel="stylesheet" href="style.css?v=20260713e" />
+  <link rel="stylesheet" href="style.css?v=20260713f" />
 </head>
 <body class="is-locked">
+  <!-- Instant unlock failsafe (runs even if main script is cached/stale) -->
+  <script>
+    (function () {
+      var UNLOCK_AT = new Date("2026-07-13T18:30:00+05:30").getTime();
+      function release() {
+        var lock = document.getElementById("siteLock");
+        if (!lock) return;
+        if (Date.now() < UNLOCK_AT) return;
+        lock.remove();
+        document.body.classList.remove("is-locked");
+        document.body.style.overflow = "";
+      }
+      release();
+      setInterval(release, 400);
+    })();
+  </script>
   <!-- ========== COUNTDOWN LOCK ========== -->
   <div id="siteLock" class="site-lock" role="dialog" aria-modal="true" aria-labelledby="siteLockTitle">
     <div class="site-lock__glow" aria-hidden="true"></div>
@@ -966,6 +982,6 @@
     </section>
   </main>
 
-  <script src="script.js" defer></script>
+  <script src="script.js?v=20260713f" defer></script>
 </body>
 </html>
