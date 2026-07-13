@@ -38,13 +38,13 @@
     body.is-locked .music-dock,
     body.is-locked .scroll-progress { visibility: hidden !important; pointer-events: none !important; }
   </style>
-  <link rel="stylesheet" href="style.css?v=20260713f" />
+  <link rel="stylesheet" href="style.css?v=20260713g" />
 </head>
 <body class="is-locked">
   <!-- Instant unlock failsafe (runs even if main script is cached/stale) -->
   <script>
     (function () {
-      var UNLOCK_AT = new Date("2026-07-13T18:30:00+05:30").getTime();
+      var UNLOCK_AT = new Date("2026-07-20T00:00:00+05:30").getTime();
       function release() {
         var lock = document.getElementById("siteLock");
         if (!lock) return;
@@ -82,7 +82,7 @@
           <span class="site-lock__label">Seconds</span>
         </div>
       </div>
-      <p class="site-lock__hint">Opens at 6:30</p>
+      <p class="site-lock__hint">Opens at midnight · July 20</p>
     </div>
     <div class="site-lock__curtain site-lock__curtain--left" aria-hidden="true"></div>
     <div class="site-lock__curtain site-lock__curtain--right" aria-hidden="true"></div>
@@ -982,6 +982,6 @@
     </section>
   </main>
 
-  <script src="script.js?v=20260713f" defer></script>
+  <script src="script.js?v=20260713g" defer></script>
 </body>
 </html>
