@@ -1,4 +1,4 @@
-/* ============================================
+﻿/* ============================================
    Anniversary Love Story â€” Premium Styles
    Mobile-first Â· 390px target
    ============================================ */
@@ -396,6 +396,11 @@ h1, h2, h3 {
   min-height: 100svh;
   padding: 4.5rem var(--pad) 5rem;
   overflow: hidden;
+}
+
+.section:not(.section--opening):not(.section--finale) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
 }
 
 .section__inner {
@@ -3656,7 +3661,8 @@ h1, h2, h3 {
 }
 
 .nf-hero img,
-.nf-hero__video {
+.nf-hero__video,
+.nf-hero__poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -3789,7 +3795,8 @@ h1, h2, h3 {
 }
 
 .nf-thumb img,
-.nf-thumb video {
+.nf-thumb video,
+.nf-thumb__poster {
   width: 100%;
   aspect-ratio: 2 / 3;
   object-fit: cover;

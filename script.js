@@ -1618,8 +1618,16 @@
 
     let i = 0;
 
+    const ensureSrc = (img) => {
+      if (!img) return;
+      const src = img.dataset.src;
+      if (src && img.getAttribute("src") !== src) img.src = src;
+    };
+
     const show = (index) => {
       i = (index + photos.length) % photos.length;
+      ensureSrc(photos[i]);
+      ensureSrc(photos[(i + 1) % photos.length]);
       photos.forEach((img, n) => img.classList.toggle("is-active", n === i));
       if (countEl) countEl.textContent = `${i + 1}/${photos.length}`;
       if (stamp) stamp.textContent = photos[i].dataset.date || "";
@@ -1774,7 +1782,7 @@
           <div class="td-card__bars" aria-hidden="true"><span class="is-on"></span><span></span><span></span><span></span></div>
           <span class="td-stamp td-stamp--like">LIKE</span>
           <span class="td-stamp td-stamp--nope">NOPE</span>
-          <img src="${p.img}" alt="${p.tag}" width="600" height="800" draggable="false" />
+          <img src="${p.img}" alt="${p.tag}" width="600" height="800" draggable="false" decoding="async" loading="eager" />
           <div class="td-card__gradient" aria-hidden="true"></div>
           <div class="td-card__meta">
             <div class="td-card__row">
@@ -1908,6 +1916,7 @@
         title: "Your Drunk Love Story",
         desc: "Rated R for Romance & Regrettable Walking. The love was real. The straight lines were not.",
         file: "assets/images/her/your_drunk_love_story.mp4",
+        poster: "assets/images/posters/your_drunk_love_story.jpg",
         tags: "Romance · Chaos · 1 Drink Minimum",
       },
       {
@@ -1915,6 +1924,7 @@
         title: "Beauty and the Cripple",
         desc: "She fell first. His knees filed a complaint. A fairytale where the beast is just… chronically uncoordinated.",
         file: "assets/images/her/beauty_and_the_cripple.mp4",
+        poster: "assets/images/posters/beauty_and_the_cripple.jpg",
         tags: "Fairytale · Physical Comedy · Soft Boy Arc",
       },
       {
@@ -1922,6 +1932,7 @@
         title: "Dancer Move",
         desc: "When the beat drops and so does your dignity. Choreography by vibes. Rehearsals: zero.",
         file: "assets/images/her/dancer_move.mp4",
+        poster: "assets/images/posters/dancer_move.jpg",
         tags: "Dance · Embarrassment · Peak Couple",
       },
       {
@@ -1929,6 +1940,7 @@
         title: "Fancy Nice Dinner",
         desc: "Michelin energy. Real-person budget. They ordered like royalty and debated dessert like a UN summit.",
         file: "assets/images/her/fancy_nice_dinner.mp4",
+        poster: "assets/images/posters/fancy_nice_dinner.jpg",
         tags: "Food · Flirting · Extra Napkins",
       },
       {
@@ -1936,6 +1948,7 @@
         title: "Fast & Furious: Bike",
         desc: "Family. Petrol. Questionable speeding. No cars were harmed — several brain cells filed for workers’ comp.",
         file: "assets/images/her/fast_and_furious_bike.mp4",
+        poster: "assets/images/posters/fast_and_furious_bike.jpg",
         tags: "Action · Helmet Optional · Main Character",
       },
       {
@@ -1943,6 +1956,7 @@
         title: "Pyraing",
         desc: "Is he praying… or pyraing? Spellcheck left the chat. A spiritual thriller about hoping she texts back.",
         file: "assets/images/her/pyraing.mp4",
+        poster: "assets/images/posters/pyraing.jpg",
         tags: "Drama · Typo Cinema · Divine Timing",
       },
     ];
@@ -1959,9 +1973,21 @@
       if (heroDesc) heroDesc.textContent = featured.tags;
       if (playHero) playHero.setAttribute("aria-label", `Play ${featured.title}`);
       if (heroVideo) {
-        heroVideo.src = featured.file;
+        heroVideo.removeAttribute("src");
         heroVideo.load();
+        heroVideo.hidden = true;
       }
+      const hero = $("#ourflixHero");
+      let posterImg = hero?.querySelector(".nf-hero__poster");
+      if (hero && !posterImg) {
+        posterImg = document.createElement("img");
+        posterImg.className = "nf-hero__poster";
+        posterImg.alt = "";
+        posterImg.decoding = "async";
+        posterImg.fetchPriority = "low";
+        hero.prepend(posterImg);
+      }
+      if (posterImg) posterImg.src = featured.poster;
     };
 
     const buildRows = () => {
@@ -1979,7 +2005,7 @@
           btn.setAttribute("aria-label", `Play ${item.title}`);
           btn.innerHTML = `
             <span class="nf-thumb__badge">N</span>
-            <video src="${item.file}" muted playsinline preload="metadata" tabindex="-1" aria-hidden="true"></video>
+            <img class="nf-thumb__poster" src="${item.poster}" alt="" loading="lazy" decoding="async" width="240" height="360" />
             <span class="nf-thumb__title">${item.title}</span>`;
           btn.addEventListener("click", () => openPlayer(item));
           rail.appendChild(btn);
@@ -1993,6 +2019,7 @@
       if (playerTitle) playerTitle.textContent = item.title;
       if (playerDesc) playerDesc.textContent = item.desc;
       if (video) {
+        video.poster = item.poster || "";
         const source = video.querySelector("source");
         if (source) source.src = item.file;
         else video.src = item.file;
