@@ -10,8 +10,8 @@
   const CONFIG = {
     // Together-for counter start: July 20, 2025 at midnight
     anniversaryDate: new Date("2025-07-20T00:00:00"),
-    // Site unlock: midnight starting July 20, 2026 (IST) — anniversary day
-    unlockAt: new Date("2026-07-20T00:00:00+05:30"),
+    // Site unlock: July 19, 2026 · 11:30 PM IST
+    unlockAt: new Date("2026-07-19T23:30:00+05:30"),
     loaderMs: 2000,
     floatingMessages: [
       "I love you",
